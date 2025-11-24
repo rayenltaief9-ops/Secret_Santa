@@ -3,25 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Secret Santa Jackpot 🎰</title>
+  <title>Secret Santa 2025 🎄</title>
 
-  <!-- Cute modern font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
 
   <style>
     :root {
-      --bg: #050816;
-      --card-bg: rgba(15, 23, 42, 0.9);
-      --accent: #ff4b8b;
-      --accent-soft: rgba(255, 75, 139, 0.2);
-      --accent-gold: #ffd166;
-      --text-main: #f9fafb;
-      --text-sub: #9ca3af;
-      --error: #ff6b6b;
+      --bg: #050b10;
+      --card: #111827;
+      --accent: #e11d48;
+      --accent-light: #f472b6;
+      --gold: #facc15;
+      --text: #f9fafb;
+      --muted: #9ca3af;
+      --border: rgba(148, 163, 184, 0.4);
+      --error: #f87171;
       --success: #4ade80;
-      --border-soft: rgba(148, 163, 184, 0.3);
     }
 
     * {
@@ -34,163 +34,86 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 20px;
       font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      color: var(--text-main);
+      color: var(--text);
       background:
-        radial-gradient(circle at 0% 0%, #ffafbd 0, transparent 50%),
-        radial-gradient(circle at 100% 100%, #ffc3a0 0, transparent 55%),
-        radial-gradient(circle at 50% 0%, #a855f7 0, transparent 45%),
+        radial-gradient(circle at 0 0, #22c55e22 0, transparent 55%),
+        radial-gradient(circle at 100% 100%, #f9731622 0, transparent 55%),
+        radial-gradient(circle at 50% 0, #0ea5e922 0, transparent 45%),
         var(--bg);
     }
 
-    .glow-orb {
-      position: fixed;
-      border-radius: 999px;
-      filter: blur(60px);
-      opacity: 0.8;
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    .orb-1 {
-      width: 260px;
-      height: 260px;
-      background: #ff4b8b;
-      top: -80px;
-      left: -40px;
-    }
-
-    .orb-2 {
-      width: 300px;
-      height: 300px;
-      background: #22d3ee;
-      bottom: -120px;
-      right: -40px;
-    }
-
-    .orb-3 {
-      width: 200px;
-      height: 200px;
-      background: #a855f7;
-      bottom: 40px;
-      left: 10%;
-    }
-
     .card {
-      width: min(480px, 90vw);
-      padding: 26px 26px 28px;
-      border-radius: 28px;
-      background: radial-gradient(circle at 0 0, rgba(255,255,255,0.06), transparent 40%),
-                  radial-gradient(circle at 100% 0, rgba(148,163,184,0.10), transparent 45%),
-                  var(--card-bg);
-      border: 1px solid rgba(148, 163, 184, 0.35);
+      width: min(480px, 100%);
+      background: var(--card);
+      border-radius: 22px;
+      padding: 22px 20px 24px;
+      border: 1px solid var(--border);
       box-shadow:
-        0 20px 45px rgba(15, 23, 42, 0.85),
-        inset 0 1px 0 rgba(255,255,255,0.04);
-      backdrop-filter: blur(24px);
-      display: flex;
-      flex-direction: column;
-      gap: 22px;
-      position: relative;
-    }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: 1px;
-      border-radius: 27px;
-      border: 1px solid rgba(255, 255, 255, 0.03);
-      pointer-events: none;
+        0 18px 40px rgba(0, 0, 0, 0.8),
+        0 0 0 1px rgba(15, 23, 42, 0.6);
     }
 
     .card-header {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 4px;
+      text-align: center;
+      margin-bottom: 16px;
     }
 
-    .title-icon {
-      font-size: 1.6rem;
-      filter: drop-shadow(0 0 8px rgba(255, 209, 102, 0.7));
+    .title-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
     }
 
     h1 {
       margin: 0;
-      font-size: 1.8rem;
+      font-size: 1.7rem;
       font-weight: 700;
-      letter-spacing: 0.05em;
-      background: linear-gradient(120deg, #ffeaa7, #ff9ff3);
+      letter-spacing: 0.04em;
+      background: linear-gradient(120deg, #fee2e2, #fed7aa);
       -webkit-background-clip: text;
       color: transparent;
-      text-shadow: 0 6px 20px rgba(0,0,0,0.55);
     }
 
     .subtitle {
-      margin-top: -4px;
+      margin-top: 4px;
       font-size: 0.9rem;
-      color: var(--text-sub);
-      text-align: center;
+      color: var(--muted);
     }
 
-    .pill {
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.4);
+    .badge {
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      margin-top: 8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
       font-size: 0.75rem;
-      color: var(--text-sub);
-      background: rgba(15, 23, 42, 0.5);
+      color: var(--muted);
     }
 
-    .pill-dot {
+    .badge-dot {
       width: 8px;
       height: 8px;
       border-radius: 999px;
-      background: radial-gradient(circle at 30% 30%, #4ade80, #15803d);
-      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.35);
-    }
-
-    .form {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      margin-top: 4px;
+      background: radial-gradient(circle at 30% 30%, #4ade80, #16a34a);
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.3);
     }
 
     label {
-      font-size: 0.9rem;
-      text-align: left;
-      color: var(--text-sub);
+      font-size: 0.85rem;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 6px;
     }
 
-    .input-row {
+    .select-row {
       display: flex;
       gap: 8px;
-      align-items: center;
-    }
-
-    select {
-      flex: 1;
-      padding: 10px 14px;
-      border-radius: 999px;
-      border: 1px solid var(--border-soft);
-      background: rgba(15, 23, 42, 0.75);
-      color: var(--text-main);
-      font-size: 0.9rem;
-      font-family: inherit;
-      outline: none;
-      appearance: none;
-      position: relative;
-    }
-
-    select:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(248, 113, 113, 0.6),
-                  0 0 0 10px rgba(248, 113, 113, 0.18);
+      margin-bottom: 14px;
     }
 
     .select-wrapper {
@@ -198,216 +121,175 @@
       flex: 1;
     }
 
+    select {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: #020617;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.9rem;
+      outline: none;
+      appearance: none;
+    }
+
+    select:focus {
+      border-color: var(--accent-light);
+      box-shadow: 0 0 0 1px rgba(236, 72, 153, 0.7);
+    }
+
     .select-wrapper::after {
       content: "▾";
       position: absolute;
-      right: 14px;
+      right: 12px;
       top: 50%;
       transform: translateY(-50%);
       font-size: 0.75rem;
-      color: var(--text-sub);
+      color: var(--muted);
       pointer-events: none;
     }
 
     button {
       border: none;
       border-radius: 999px;
-      padding: 11px 20px;
+      padding: 10px 15px;
+      font-size: 0.9rem;
       font-family: inherit;
-      font-size: 0.95rem;
       font-weight: 600;
-      cursor: pointer;
-      background: linear-gradient(135deg, #b91c1c, #7f1d1d);
+      background: linear-gradient(135deg, var(--accent), #7f1d1d);
       color: #f9fafb;
-      box-shadow:
-        0 10px 25px rgba(127, 29, 29, 0.9),
-        0 0 0 1px rgba(248, 113, 113, 0.6);
-      transition: transform 0.12s ease-out, box-shadow 0.12s ease-out, filter 0.12s ease-out;
+      cursor: pointer;
+      white-space: nowrap;
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      gap: 8px;
-      white-space: nowrap;
+      gap: 6px;
+      box-shadow: 0 10px 20px rgba(127, 29, 29, 0.7);
+      transition: transform 0.1s ease-out, box-shadow 0.1s ease-out, filter 0.1s ease-out;
     }
 
-    button span.icon {
-      font-size: 1.1rem;
-    }
-
-    button:hover {
-      transform: translateY(-1px) translateZ(0);
+    button:hover:not(:disabled) {
+      transform: translateY(-1px);
       filter: brightness(1.05);
-      box-shadow:
-        0 14px 32px rgba(127, 29, 29, 0.95),
-        0 0 0 1px rgba(248, 113, 113, 0.8);
+      box-shadow: 0 14px 26px rgba(127, 29, 29, 0.9);
     }
 
-    button:active {
+    button:active:not(:disabled) {
       transform: translateY(0) scale(0.98);
-      box-shadow:
-        0 8px 20px rgba(127, 29, 29, 0.8),
-        0 0 0 1px rgba(248, 113, 113, 0.7);
+      box-shadow: 0 8px 16px rgba(127, 29, 29, 0.8);
     }
 
     button:disabled {
-      opacity: 0.7;
+      opacity: 0.6;
       cursor: default;
-      transform: none;
-      box-shadow:
-        0 8px 20px rgba(15, 23, 42, 0.8),
-        0 0 0 1px rgba(148, 163, 184, 0.5);
+      box-shadow: none;
     }
 
-    .slot-container {
+    .slot-box {
       margin-top: 4px;
-      border-radius: 20px;
-      padding: 12px;
-      background: radial-gradient(circle at 0 0, rgba(255,255,255,0.06), transparent 60%),
-                  radial-gradient(circle at 100% 100%, rgba(148,163,184,0.20), transparent 60%),
-                  rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.55);
-      box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.9);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .slot-window {
-      border-radius: 14px;
-      padding: 14px 10px;
-      background: radial-gradient(circle at 50% 0, rgba(15,23,42,0.85), rgba(15,23,42,1));
-      border: 1px solid rgba(15, 23, 42, 0.9);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
+      border-radius: 18px;
+      padding: 10px 10px 12px;
+      background: radial-gradient(circle at 0 0, #111827, #020617);
+      border: 1px solid rgba(30, 64, 175, 0.8);
+      box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.8);
     }
 
     .slot-label {
-      position: absolute;
-      top: 7px;
-      left: 12px;
-      font-size: 0.68rem;
+      font-size: 0.7rem;
+      color: var(--muted);
       text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: rgba(148, 163, 184, 0.85);
+      letter-spacing: 0.15em;
+      margin-bottom: 4px;
+    }
+
+    .slot-window {
+      border-radius: 12px;
+      background: #020617;
+      padding: 10px;
+      text-align: center;
     }
 
     .slot {
-      font-size: 1.7rem;
-      letter-spacing: 0.13em;
-      text-transform: uppercase;
+      font-size: 1.6rem;
+      letter-spacing: 0.1em;
       font-weight: 700;
-      color: var(--accent-gold);
-      text-shadow:
-        0 0 12px rgba(255, 209, 102, 0.75),
-        0 0 30px rgba(253, 224, 71, 0.5);
-      min-height: 2.2em;
+      color: var(--gold);
+      text-shadow: 0 0 10px rgba(250, 204, 21, 0.7);
+      min-height: 2.1em;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 8px 12px;
     }
 
     .slot.spinning {
-      animation: spin 0.15s linear infinite;
+      animation: spin 0.14s linear infinite;
     }
 
     @keyframes spin {
-      0%   { transform: translateY(0); }
-      25%  { transform: translateY(-4px); }
-      50%  { transform: translateY(0); }
-      75%  { transform: translateY(4px); }
+      0% { transform: translateY(0); }
+      25% { transform: translateY(-3px); }
+      50% { transform: translateY(0); }
+      75% { transform: translateY(3px); }
       100% { transform: translateY(0); }
     }
 
-    .slot-glow {
-      position: absolute;
-      inset: 0;
-      border-radius: 16px;
-      box-shadow:
-        0 0 28px rgba(255, 209, 102, 0.6),
-        0 0 62px rgba(248, 113, 113, 0.45);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.25s ease-out;
-    }
-
-    .slot-glow.active {
-      opacity: 1;
-    }
-
-    .message {
+    .msg {
+      margin-top: 10px;
       min-height: 32px;
       font-size: 0.86rem;
-      color: var(--text-sub);
+      color: var(--muted);
       text-align: center;
-      margin-top: 6px;
     }
 
-    .message.error {
+    .msg.error {
       color: var(--error);
     }
 
-    .message.success {
+    .msg.success {
       color: var(--success);
     }
 
     .footer {
-      font-size: 0.78rem;
-      color: var(--text-sub);
+      margin-top: 4px;
+      font-size: 0.75rem;
+      color: var(--muted);
       text-align: center;
-      opacity: 0.9;
-      margin-top: -2px;
-    }
-
-    .footer span {
-      opacity: 0.7;
+      opacity: 0.8;
     }
 
     @media (max-width: 480px) {
       .card {
-        padding: 22px 18px 24px;
-        border-radius: 24px;
+        padding: 18px 14px 20px;
       }
       h1 {
-        font-size: 1.55rem;
+        font-size: 1.5rem;
       }
       .slot {
-        font-size: 1.45rem;
-        letter-spacing: 0.09em;
-      }
-      .subtitle {
-        font-size: 0.82rem;
+        font-size: 1.4rem;
       }
     }
   </style>
 </head>
 <body>
-
-  <div class="glow-orb orb-1"></div>
-  <div class="glow-orb orb-2"></div>
-  <div class="glow-orb orb-3"></div>
-
   <main class="card">
     <header class="card-header">
-      <div class="title-icon">🎁</div>
-      <h1>Secret Santa 2024</h1>
-      <div class="title-icon">🎄</div>
+      <div class="title-row">
+        <span>🎁</span>
+        <h1>Secret Santa 2025</h1>
+        <span>🎄</span>
+      </div>
+      <div class="subtitle">
+        9 friends, 9 gifts. Each device can roll for <strong>exactly one person</strong>.
+      </div>
+      <div class="badge">
+        <span class="badge-dot"></span>
+        <span>Lobby locked · private game</span>
+      </div>
     </header>
 
-    <div class="subtitle">
-      Each person can roll <strong>exactly once</strong>.  
-      No cheating. The North Pole is watching. 👀
-    </div>
-
-    <div class="pill" style="align-self:center;">
-      <span class="pill-dot"></span>
-      <span>Online lobby · 9 players locked in</span>
-    </div>
-
-    <section class="form">
-      <label for="nameSelect">1. Who are you?</label>
-      <div class="input-row">
+    <section>
+      <label for="nameSelect">1. Choose who you are:</label>
+      <div class="select-row">
         <div class="select-wrapper">
           <select id="nameSelect">
             <option value="">Pick your name…</option>
@@ -422,130 +304,185 @@
             <option value="ayumi">Ayumi</option>
           </select>
         </div>
-        <button id="spinBtn">
-          <span class="icon">🎰</span>
-          <span>Roll my target</span>
+        <button id="rollBtn">
+          <span>🎰</span>
+          <span>Roll</span>
         </button>
       </div>
     </section>
 
-    <section class="slot-container">
+    <section class="slot-box">
+      <div class="slot-label">your secret target</div>
       <div class="slot-window">
-        <div class="slot-label">your victim</div>
-        <div id="slotGlow" class="slot-glow"></div>
         <div id="slot" class="slot">????</div>
       </div>
     </section>
 
-    <div id="message" class="message">
-      Tap the jackpot to find out who you’re emotionally responsible for. 💸
+    <div id="msg" class="msg">
+      Pick your name and hit <strong>Roll</strong>. The result is saved on this device.
     </div>
 
-    <div class="footer">
-      <span>Names are secretly shuffled on the server. Nobody can see anyone else’s match – not even you.</span>
-    </div>
+    <div class="footer" id="deviceInfo"></div>
   </main>
 
   <script>
     const DISPLAY_NAMES = ["Alice","Rayen","Hannagh","Martina","Sasha","Will","Fabi","Arian","Ayumi"];
     const API_URL = "/api/target";
+    const STORAGE_NAME_KEY = "ss25_name";
+    const STORAGE_TARGET_KEY = "ss25_target";
 
     const nameSelect = document.getElementById("nameSelect");
-    const spinBtn = document.getElementById("spinBtn");
-    const slotEl = document.getElementById("slot");
-    const msgEl = document.getElementById("message");
-    const glowEl = document.getElementById("slotGlow");
+    const rollBtn = document.getElementById("rollBtn");
+    const slot = document.getElementById("slot");
+    const msg = document.getElementById("msg");
+    const deviceInfo = document.getElementById("deviceInfo");
 
     let spinInterval = null;
     let isSpinning = false;
 
     function setMessage(text, type = "") {
-      msgEl.classList.remove("error", "success");
-      if (type) msgEl.classList.add(type);
-      msgEl.innerHTML = text;
+      msg.classList.remove("error", "success");
+      if (type) msg.classList.add(type);
+      msg.innerHTML = text;
     }
 
-    function startRoller() {
+    function setDeviceInfo(text) {
+      deviceInfo.textContent = text || "";
+    }
+
+    function startSpinner() {
       let i = 0;
       if (spinInterval) clearInterval(spinInterval);
+      slot.classList.add("spinning");
       spinInterval = setInterval(() => {
-        slotEl.textContent = DISPLAY_NAMES[i % DISPLAY_NAMES.length].toUpperCase();
+        slot.textContent = DISPLAY_NAMES[i % DISPLAY_NAMES.length].toUpperCase();
         i++;
-      }, 80);
-      slotEl.classList.add("spinning");
-      glowEl.classList.remove("active");
+      }, 90);
       isSpinning = true;
     }
 
-    function stopRoller(finalName) {
+    function stopSpinner(finalText) {
       if (spinInterval) {
         clearInterval(spinInterval);
         spinInterval = null;
       }
       setTimeout(() => {
-        slotEl.classList.remove("spinning");
-        slotEl.textContent = finalName.toUpperCase();
-        glowEl.classList.add("active");
+        slot.classList.remove("spinning");
+        if (finalText) {
+          slot.textContent = finalText.toUpperCase();
+        }
         isSpinning = false;
-      }, 350);
+      }, 320);
     }
 
-    async function handleSpin() {
-      const giver = nameSelect.value.trim().toLowerCase();
+    function lockDeviceTo(name, target) {
+      localStorage.setItem(STORAGE_NAME_KEY, name);
+      localStorage.setItem(STORAGE_TARGET_KEY, target);
+      nameSelect.value = name;
+      nameSelect.disabled = true;
+      rollBtn.disabled = true;
+      const prettyTarget = target.charAt(0).toUpperCase() + target.slice(1);
+      setMessage(
+        `This device is now locked to <strong>${capitalize(name)}</strong>.<br>Your target is <strong>${prettyTarget}</strong>.`,
+        "success"
+      );
+      setDeviceInfo("If you change device or browser, you’ll get the same name again (server remembers).");
+    }
 
-      if (!giver) {
-        setMessage("Please choose your name first, mysterious stranger ✨", "error");
+    function capitalize(s) {
+      return s.charAt(0).toUpperCase() + s.slice(1);
+    }
+
+    // Restore previous roll if exists
+    (function initFromStorage() {
+      const storedName = localStorage.getItem(STORAGE_NAME_KEY);
+      const storedTarget = localStorage.getItem(STORAGE_TARGET_KEY);
+      if (storedName && storedTarget) {
+        nameSelect.value = storedName;
+        nameSelect.disabled = true;
+        rollBtn.disabled = true;
+        slot.textContent = storedTarget.toUpperCase();
+        setMessage(
+          `Welcome back, <strong>${capitalize(storedName)}</strong>!<br>Your Secret Santa target is still <strong>${capitalize(storedTarget)}</strong>.`,
+          "success"
+        );
+        setDeviceInfo("This browser is already used by " + capitalize(storedName) + ".");
+      }
+    })();
+
+    async function handleRoll() {
+      const selected = nameSelect.value.trim().toLowerCase();
+
+      if (!selected) {
+        setMessage("Please choose your own name first 🌟", "error");
+        return;
+      }
+
+      const storedName = localStorage.getItem(STORAGE_NAME_KEY);
+      const storedTarget = localStorage.getItem(STORAGE_TARGET_KEY);
+
+      // Device already locked to someone
+      if (storedName && storedName !== selected) {
+        setMessage(
+          `This device is already locked to <strong>${capitalize(storedName)}</strong>. You can’t roll for another person on the same phone.`,
+          "error"
+        );
+        nameSelect.value = storedName;
+        return;
+      }
+
+      if (storedName && storedName === selected && storedTarget) {
+        setMessage(
+          `You already rolled, <strong>${capitalize(storedName)}</strong>! Your target is <strong>${capitalize(storedTarget)}</strong>.`,
+          "success"
+        );
         return;
       }
 
       if (isSpinning) return;
 
-      spinBtn.disabled = true;
-      startRoller();
-      setMessage("Shuffling souls and responsibilities… hold on 🧪");
+      rollBtn.disabled = true;
+      startSpinner();
+      setMessage("Shuffling names in Santa’s database… 🎅");
 
       try {
-        const res = await fetch(`${API_URL}?giver=${encodeURIComponent(giver)}`);
+        const res = await fetch(`${API_URL}?giver=${encodeURIComponent(selected)}`);
         const data = await res.json();
 
         if (!res.ok || data.error) {
-          stopRoller("????");
-          spinBtn.disabled = false;
+          stopSpinner("????");
+          rollBtn.disabled = false;
 
           if (data.error === "unknown_giver") {
-            setMessage("Name not recognised. Are you trying to hack Christmas? 🎅🏻", "error");
+            setMessage("Name not recognised by the server. Check the spelling list.", "error");
           } else if (data.error === "already_played") {
-            setMessage("Nice try. You already rolled once. Santa remembers. 😏", "error");
+            setMessage(
+              "This name has already rolled on the server. Use the same device you used the first time!",
+              "error"
+            );
           } else {
-            setMessage("Server had a little meltdown. Try again in a bit. 🔥", "error");
+            setMessage("Server had a little panic. Try again later 🔧", "error");
           }
           return;
         }
 
         const target = data.target || "????";
-        const pretty = target.charAt(0).toUpperCase() + target.slice(1);
+        const prettyTarget = capitalize(target);
 
-        // Dramatic pause before reveal
         setTimeout(() => {
-          stopRoller(pretty);
-          setMessage(
-            `You are now emotionally and financially responsible for <strong>${pretty}</strong>. Good luck 🍀`,
-            "success"
-          );
-        }, 900);
+          stopSpinner(prettyTarget);
+          lockDeviceTo(selected, target);
+        }, 800);
 
       } catch (err) {
         console.error(err);
-        stopRoller("ERR");
-        setMessage("Network error. Santa’s Wi-Fi just died. Try again. 📡", "error");
-      } finally {
-        setTimeout(() => {
-          spinBtn.disabled = false;
-        }, 1400);
+        stopSpinner("ERR");
+        rollBtn.disabled = false;
+        setMessage("Network error. Santa’s Wi-Fi died. Try again in a bit 📡", "error");
       }
     }
 
-    spinBtn.addEventListener("click", handleSpin);
+    rollBtn.addEventListener("click", handleRoll);
   </script>
 </body>
 </html>
