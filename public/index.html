@@ -3,115 +3,549 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Secret Santa 🎄</title>
+  <title>Secret Santa Jackpot 🎰</title>
+
+  <!-- Cute modern font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <style>
+    :root {
+      --bg: #050816;
+      --card-bg: rgba(15, 23, 42, 0.9);
+      --accent: #ff4b8b;
+      --accent-soft: rgba(255, 75, 139, 0.2);
+      --accent-gold: #ffd166;
+      --text-main: #f9fafb;
+      --text-sub: #9ca3af;
+      --error: #ff6b6b;
+      --success: #4ade80;
+      --border-soft: rgba(148, 163, 184, 0.3);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      background: #f7f7f7;
-      padding: 20px;
-      text-align: center;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text-main);
+      background:
+        radial-gradient(circle at 0% 0%, #ffafbd 0, transparent 50%),
+        radial-gradient(circle at 100% 100%, #ffc3a0 0, transparent 55%),
+        radial-gradient(circle at 50% 0%, #a855f7 0, transparent 45%),
+        var(--bg);
+    }
+
+    .glow-orb {
+      position: fixed;
+      border-radius: 999px;
+      filter: blur(60px);
+      opacity: 0.8;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .orb-1 {
+      width: 260px;
+      height: 260px;
+      background: #ff4b8b;
+      top: -80px;
+      left: -40px;
+    }
+
+    .orb-2 {
+      width: 300px;
+      height: 300px;
+      background: #22d3ee;
+      bottom: -120px;
+      right: -40px;
+    }
+
+    .orb-3 {
+      width: 200px;
+      height: 200px;
+      background: #a855f7;
+      bottom: 40px;
+      left: 10%;
+    }
+
+    .card {
+      width: min(480px, 90vw);
+      padding: 26px 26px 28px;
+      border-radius: 28px;
+      background: radial-gradient(circle at 0 0, rgba(255,255,255,0.06), transparent 40%),
+                  radial-gradient(circle at 100% 0, rgba(148,163,184,0.10), transparent 45%),
+                  var(--card-bg);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      box-shadow:
+        0 20px 45px rgba(15, 23, 42, 0.85),
+        inset 0 1px 0 rgba(255,255,255,0.04);
+      backdrop-filter: blur(24px);
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      position: relative;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 1px;
+      border-radius: 27px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      pointer-events: none;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+
+    .title-icon {
+      font-size: 1.6rem;
+      filter: drop-shadow(0 0 8px rgba(255, 209, 102, 0.7));
     }
 
     h1 {
-      color: darkred;
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      background: linear-gradient(120deg, #ffeaa7, #ff9ff3);
+      -webkit-background-clip: text;
+      color: transparent;
+      text-shadow: 0 6px 20px rgba(0,0,0,0.55);
     }
 
-    #container {
-      margin-top: 30px;
-      max-width: 400px;
-      padding: 25px;
-      margin-left: auto;
-      margin-right: auto;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    .subtitle {
+      margin-top: -4px;
+      font-size: 0.9rem;
+      color: var(--text-sub);
+      text-align: center;
     }
 
-    input, button {
-      padding: 12px;
-      width: 80%;
-      margin: 10px 0;
-      font-size: 16px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
+    .pill {
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      color: var(--text-sub);
+      background: rgba(15, 23, 42, 0.5);
+    }
+
+    .pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #4ade80, #15803d);
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.35);
+    }
+
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 4px;
+    }
+
+    label {
+      font-size: 0.9rem;
+      text-align: left;
+      color: var(--text-sub);
+    }
+
+    .input-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    select {
+      flex: 1;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: rgba(15, 23, 42, 0.75);
+      color: var(--text-main);
+      font-size: 0.9rem;
+      font-family: inherit;
+      outline: none;
+      appearance: none;
+      position: relative;
+    }
+
+    select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(248, 113, 113, 0.6),
+                  0 0 0 10px rgba(248, 113, 113, 0.18);
+    }
+
+    .select-wrapper {
+      position: relative;
+      flex: 1;
+    }
+
+    .select-wrapper::after {
+      content: "▾";
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.75rem;
+      color: var(--text-sub);
+      pointer-events: none;
     }
 
     button {
-      background: darkred;
-      color: white;
-      cursor: pointer;
       border: none;
+      border-radius: 999px;
+      padding: 11px 20px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: linear-gradient(135deg, #b91c1c, #7f1d1d);
+      color: #f9fafb;
+      box-shadow:
+        0 10px 25px rgba(127, 29, 29, 0.9),
+        0 0 0 1px rgba(248, 113, 113, 0.6);
+      transition: transform 0.12s ease-out, box-shadow 0.12s ease-out, filter 0.12s ease-out;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+
+    button span.icon {
+      font-size: 1.1rem;
     }
 
     button:hover {
-      background: #b30000;
+      transform: translateY(-1px) translateZ(0);
+      filter: brightness(1.05);
+      box-shadow:
+        0 14px 32px rgba(127, 29, 29, 0.95),
+        0 0 0 1px rgba(248, 113, 113, 0.8);
     }
 
-    #result {
-      font-size: 20px;
-      margin-top: 20px;
-      font-weight: bold;
-      color: green;
+    button:active {
+      transform: translateY(0) scale(0.98);
+      box-shadow:
+        0 8px 20px rgba(127, 29, 29, 0.8),
+        0 0 0 1px rgba(248, 113, 113, 0.7);
     }
 
-    #error {
-      font-size: 18px;
-      margin-top: 20px;
-      font-weight: bold;
-      color: red;
+    button:disabled {
+      opacity: 0.7;
+      cursor: default;
+      transform: none;
+      box-shadow:
+        0 8px 20px rgba(15, 23, 42, 0.8),
+        0 0 0 1px rgba(148, 163, 184, 0.5);
+    }
+
+    .slot-container {
+      margin-top: 4px;
+      border-radius: 20px;
+      padding: 12px;
+      background: radial-gradient(circle at 0 0, rgba(255,255,255,0.06), transparent 60%),
+                  radial-gradient(circle at 100% 100%, rgba(148,163,184,0.20), transparent 60%),
+                  rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.9);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slot-window {
+      border-radius: 14px;
+      padding: 14px 10px;
+      background: radial-gradient(circle at 50% 0, rgba(15,23,42,0.85), rgba(15,23,42,1));
+      border: 1px solid rgba(15, 23, 42, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .slot-label {
+      position: absolute;
+      top: 7px;
+      left: 12px;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: rgba(148, 163, 184, 0.85);
+    }
+
+    .slot {
+      font-size: 1.7rem;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--accent-gold);
+      text-shadow:
+        0 0 12px rgba(255, 209, 102, 0.75),
+        0 0 30px rgba(253, 224, 71, 0.5);
+      min-height: 2.2em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 12px;
+    }
+
+    .slot.spinning {
+      animation: spin 0.15s linear infinite;
+    }
+
+    @keyframes spin {
+      0%   { transform: translateY(0); }
+      25%  { transform: translateY(-4px); }
+      50%  { transform: translateY(0); }
+      75%  { transform: translateY(4px); }
+      100% { transform: translateY(0); }
+    }
+
+    .slot-glow {
+      position: absolute;
+      inset: 0;
+      border-radius: 16px;
+      box-shadow:
+        0 0 28px rgba(255, 209, 102, 0.6),
+        0 0 62px rgba(248, 113, 113, 0.45);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease-out;
+    }
+
+    .slot-glow.active {
+      opacity: 1;
+    }
+
+    .message {
+      min-height: 32px;
+      font-size: 0.86rem;
+      color: var(--text-sub);
+      text-align: center;
+      margin-top: 6px;
+    }
+
+    .message.error {
+      color: var(--error);
+    }
+
+    .message.success {
+      color: var(--success);
+    }
+
+    .footer {
+      font-size: 0.78rem;
+      color: var(--text-sub);
+      text-align: center;
+      opacity: 0.9;
+      margin-top: -2px;
+    }
+
+    .footer span {
+      opacity: 0.7;
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 22px 18px 24px;
+        border-radius: 24px;
+      }
+      h1 {
+        font-size: 1.55rem;
+      }
+      .slot {
+        font-size: 1.45rem;
+        letter-spacing: 0.09em;
+      }
+      .subtitle {
+        font-size: 0.82rem;
+      }
     }
   </style>
 </head>
 <body>
 
-  <h1>🎁 Secret Santa 2024 🎄</h1>
+  <div class="glow-orb orb-1"></div>
+  <div class="glow-orb orb-2"></div>
+  <div class="glow-orb orb-3"></div>
 
-  <div id="container">
-    <p>Enter your name to reveal who you must give a gift to:</p>
+  <main class="card">
+    <header class="card-header">
+      <div class="title-icon">🎁</div>
+      <h1>Secret Santa 2024</h1>
+      <div class="title-icon">🎄</div>
+    </header>
 
-    <input id="nameInput" placeholder="Your name..." />
+    <div class="subtitle">
+      Each person can roll <strong>exactly once</strong>.  
+      No cheating. The North Pole is watching. 👀
+    </div>
 
-    <button onclick="submitName()">Reveal 🎁</button>
+    <div class="pill" style="align-self:center;">
+      <span class="pill-dot"></span>
+      <span>Online lobby · 9 players locked in</span>
+    </div>
 
-    <div id="result"></div>
-    <div id="error"></div>
-  </div>
+    <section class="form">
+      <label for="nameSelect">1. Who are you?</label>
+      <div class="input-row">
+        <div class="select-wrapper">
+          <select id="nameSelect">
+            <option value="">Pick your name…</option>
+            <option value="alice">Alice</option>
+            <option value="rayen">Rayen</option>
+            <option value="hannagh">Hannagh</option>
+            <option value="martina">Martina</option>
+            <option value="sasha">Sasha</option>
+            <option value="will">Will</option>
+            <option value="fabi">Fabi</option>
+            <option value="arian">Arian</option>
+            <option value="ayumi">Ayumi</option>
+          </select>
+        </div>
+        <button id="spinBtn">
+          <span class="icon">🎰</span>
+          <span>Roll my target</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="slot-container">
+      <div class="slot-window">
+        <div class="slot-label">your victim</div>
+        <div id="slotGlow" class="slot-glow"></div>
+        <div id="slot" class="slot">????</div>
+      </div>
+    </section>
+
+    <div id="message" class="message">
+      Tap the jackpot to find out who you’re emotionally responsible for. 💸
+    </div>
+
+    <div class="footer">
+      <span>Names are secretly shuffled on the server. Nobody can see anyone else’s match – not even you.</span>
+    </div>
+  </main>
 
   <script>
-    async function submitName() {
-      const name = document.getElementById("nameInput").value.trim().toLowerCase();
-      document.getElementById("result").innerHTML = "";
-      document.getElementById("error").innerHTML = "";
+    const DISPLAY_NAMES = ["Alice","Rayen","Hannagh","Martina","Sasha","Will","Fabi","Arian","Ayumi"];
+    const API_URL = "/api/target";
 
-      if (!name) {
-        document.getElementById("error").innerHTML = "❌ Please enter your name.";
+    const nameSelect = document.getElementById("nameSelect");
+    const spinBtn = document.getElementById("spinBtn");
+    const slotEl = document.getElementById("slot");
+    const msgEl = document.getElementById("message");
+    const glowEl = document.getElementById("slotGlow");
+
+    let spinInterval = null;
+    let isSpinning = false;
+
+    function setMessage(text, type = "") {
+      msgEl.classList.remove("error", "success");
+      if (type) msgEl.classList.add(type);
+      msgEl.innerHTML = text;
+    }
+
+    function startRoller() {
+      let i = 0;
+      if (spinInterval) clearInterval(spinInterval);
+      spinInterval = setInterval(() => {
+        slotEl.textContent = DISPLAY_NAMES[i % DISPLAY_NAMES.length].toUpperCase();
+        i++;
+      }, 80);
+      slotEl.classList.add("spinning");
+      glowEl.classList.remove("active");
+      isSpinning = true;
+    }
+
+    function stopRoller(finalName) {
+      if (spinInterval) {
+        clearInterval(spinInterval);
+        spinInterval = null;
+      }
+      setTimeout(() => {
+        slotEl.classList.remove("spinning");
+        slotEl.textContent = finalName.toUpperCase();
+        glowEl.classList.add("active");
+        isSpinning = false;
+      }, 350);
+    }
+
+    async function handleSpin() {
+      const giver = nameSelect.value.trim().toLowerCase();
+
+      if (!giver) {
+        setMessage("Please choose your name first, mysterious stranger ✨", "error");
         return;
       }
 
-      try {
-        const res = await fetch(`/api/target?giver=${name}`);
+      if (isSpinning) return;
 
+      spinBtn.disabled = true;
+      startRoller();
+      setMessage("Shuffling souls and responsibilities… hold on 🧪");
+
+      try {
+        const res = await fetch(`${API_URL}?giver=${encodeURIComponent(giver)}`);
         const data = await res.json();
 
-        if (data.error === "unknown_giver") {
-          document.getElementById("error").innerHTML = "❌ Name not recognized.";
+        if (!res.ok || data.error) {
+          stopRoller("????");
+          spinBtn.disabled = false;
+
+          if (data.error === "unknown_giver") {
+            setMessage("Name not recognised. Are you trying to hack Christmas? 🎅🏻", "error");
+          } else if (data.error === "already_played") {
+            setMessage("Nice try. You already rolled once. Santa remembers. 😏", "error");
+          } else {
+            setMessage("Server had a little meltdown. Try again in a bit. 🔥", "error");
+          }
           return;
         }
 
-        if (data.error === "already_played") {
-          document.getElementById("error").innerHTML = "❌ You already checked your Secret Santa!";
-          return;
-        }
+        const target = data.target || "????";
+        const pretty = target.charAt(0).toUpperCase() + target.slice(1);
 
-        document.getElementById("result").innerHTML =
-          `🎅 You must give a gift to: <strong>${data.target}</strong>`;
+        // Dramatic pause before reveal
+        setTimeout(() => {
+          stopRoller(pretty);
+          setMessage(
+            `You are now emotionally and financially responsible for <strong>${pretty}</strong>. Good luck 🍀`,
+            "success"
+          );
+        }, 900);
+
       } catch (err) {
-        document.getElementById("error").innerHTML =
-          "❌ Server error. Try again later.";
+        console.error(err);
+        stopRoller("ERR");
+        setMessage("Network error. Santa’s Wi-Fi just died. Try again. 📡", "error");
+      } finally {
+        setTimeout(() => {
+          spinBtn.disabled = false;
+        }, 1400);
       }
     }
-  </script>
 
+    spinBtn.addEventListener("click", handleSpin);
+  </script>
 </body>
 </html>
